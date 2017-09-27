@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Reservas</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Cadastros">
+				<p:menuitem value="Usuario" action="#{usuarioBean.listarTodos}" />
+				<p:menuitem value="Sala de Aula" action="#{salaBean.listarTodos}" />
+				<p:menuitem value="Reservas" action="#{reservaBean.buscarTodos}" />
+			</p:submenu>
+		</p:menubar>
+	</h:form>
+
+	<h:form>
+		<p:messages id="mensagem"/>
+	
+		<p:commandButton value="Novo" action="#{reservaBean.novo}"/>
+		<p:commandButton value="Alterar" action="#{reservaBean.alterar}" update="mensagem"/>
+		<p:commandButton value="Excluir" action="#{reservaBean.excluir}" update="tabelaReservas, mensagem"/>
+		<p:commandButton value="Atualizar" action="#{reservaBean.buscarTodos}" update="tabelaReservas, mensagem"/>
+	
+		<p:dataTable id="tabelaReservas" var="reserva" value="#{reservaBean.listReserva}"
+			selectionMode="single" selection="#{reservaBean.reservaSelecionada}"
+			rowKey="#{reserva.idReserva}">
+			<p:column headerText="Nome do professor">
+				<h:outputText value="#{reserva.nomeProfessor}" />
+			</p:column>
+			<p:column headerText="Matricula">
+				<h:outputText value="#{reserva.matriculaProfessor}" />
+			</p:column>
+			<p:column headerText="Inicio">
+				<h:outputText value="#{reserva.inicio}"  />
+			</p:column>
+			<p:column headerText="Termino">
+				<h:outputText value="#{reserva.termino}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+</html>

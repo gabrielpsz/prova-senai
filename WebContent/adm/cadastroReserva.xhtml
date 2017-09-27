@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Cadastro de Reserva</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Cadastros">
+				<p:menuitem value="Usuario" action="#{usuarioBean.listarTodos}" />
+				<p:menuitem value="Sala de Aula" action="#{salaBean.listarTodos}" />
+				<p:menuitem value="Reservas" action="#{reservaBean.buscarTodos}" />
+			</p:submenu>
+		</p:menubar>
+	</h:form>
+	
+	<h:form id="formulario">
+		<p:messages id="mensagem"/>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Nome do professor" for="nomeProfessor"/>
+			<p:inputText value="#{reservaBean.reserva.nomeProfessor}" id="nomeProfessor" required="true" requiredMessage="O nome do professor é obrigatório!" maxlength="15"/>
+			
+			<p:outputLabel value="Matricula do professor" for="matriculaProfessor"/>
+			<p:inputText id="matriculaProfessor" value="#{reservaBean.reserva.matriculaProfessor}" required="true" requiredMessage="A matricula do professor é obrigatória!"/>
+			
+			<p:outputLabel for="dataInicio" value="Data inicio:" />
+        	<p:calendar id="dataInicio" value="#{reservaBean.reserva.inicio}" pattern="MM/dd/yyyy HH:mm" required="true" requiredMessage="A data de inicio é obrigatória!"/>
+        	
+        	<p:outputLabel for="dataTermino" value="Data termino" />
+        	<p:calendar id="dataTermino" value="#{reservaBean.reserva.termino}" pattern="MM/dd/yyyy HH:mm" required="true" requiredMessage="A data de inicio é obrigatória!" />
+        	
+        	<p:outputLabel for="sala" value="Sala:" />
+				<p:selectOneMenu id="sala" value="#{reservaBean.reserva.sala}" required="true" requiredMessage="A sala é obrigatório" converter="SalaConverter">
+            		<f:selectItem itemLabel="Selecione..." itemValue="" />
+            		<f:selectItems value="#{reservaBean.listSala}" var="sala" itemLabel="#{sala.nome}" itemValue="#{sala}" />
+            	</p:selectOneMenu><br/>
+        	
+		</h:panelGrid>
+		<p:commandButton value="Voltar" action="#{reservaBean.voltar}" immediate="true"/>
+		<p:commandButton value="Limpar" action="#{reservaBean.novo}" immediate="true" update="formulario"/>
+		<p:commandButton value="Salvar" action="#{reservaBean.salvar}" update="formulario, mensagem"/>
+	</h:form>
+
+</h:body>
+</html>

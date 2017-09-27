@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Cadastro de Usuario</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Cadastros">
+				<p:menuitem value="Usuario" action="#{usuarioBean.listarTodos}" />
+				<p:menuitem value="Sala de Aula" action="#{salaBean.listarTodos}" />
+				<p:menuitem value="Reservas" action="#{reservaBean.buscarTodos}" />
+			</p:submenu>
+		</p:menubar>
+	</h:form>
+	
+	<h:form id="formulario">
+		<p:messages id="mensagem"/>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Nome" for="nome_id"/>
+			<p:inputText value="#{salaBean.sala.nome}" id="nome_id" required="true" requiredMessage="O nome é obrigatório!" maxlength="15"/>
+			
+			<p:outputLabel value="Capacidade" for="capacidade_id"/>
+			<p:spinner id="capacidade_id" value="#{salaBean.sala.capacidade}" required="true" requiredMessage="A capacidade é obrigatória!"/>
+			
+			<p:outputLabel value="Laboratório?" for="laboratorio_id"/>
+			<p:inputSwitch id="laboratorio_id" value="#{salaBean.sala.laboratorio}" required="true" requiredMessage="É obrigatório informar se é laboratório ou não!" onLabel="Sim" offLabel="Não"/>
+		</h:panelGrid>
+		<p:commandButton value="Voltar" action="#{salaBean.voltar}" immediate="true"/>
+		<p:commandButton value="Limpar" action="#{salaBean.novo}" immediate="true" update="formulario"/>
+		<p:commandButton value="Salvar" action="#{salaBean.salvar}" update="formulario, mensagem"/>
+	</h:form>
+
+</h:body>
+</html>

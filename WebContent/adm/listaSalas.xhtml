@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Salas</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Cadastros">
+				<p:menuitem value="Usuario" action="#{usuarioBean.listarTodos}" />
+				<p:menuitem value="Sala de Aula" action="#{salaBean.listarTodos}" />
+				<p:menuitem value="Reservas" action="#{reservaBean.buscarTodos}" />
+			</p:submenu>
+		</p:menubar>
+	</h:form>
+
+	<h:form>
+		<p:messages id="mensagem"/>
+	
+		<p:commandButton value="Novo" action="#{salaBean.novo}"/>
+		<p:commandButton value="Alterar" action="#{salaBean.alterar}" update="mensagem"/>
+		<p:commandButton value="Excluir" action="#{salaBean.excluir}" update="tabelaSalas, mensagem"/>
+		<p:commandButton value="Atualizar" action="#{salaBean.listarTodos}" update="tabelaSalas, mensagem"/>
+	
+		<p:dataTable id="tabelaSalas" var="sala" value="#{salaBean.salas}"
+			selectionMode="single" selection="#{salaBean.salaSelecionada}"
+			rowKey="#{sala.idSala}">
+			<p:column headerText="Nome">
+				<h:outputText value="#{sala.nome}" />
+			</p:column>
+			<p:column headerText="Capacidade">
+				<h:outputText value="#{sala.capacidade}" />
+			</p:column>
+			<p:column headerText="Laboratório?">
+				<h:outputText value="#{sala.laboratorio}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+</html>
